@@ -7,9 +7,10 @@ import (
 
 func main() {
 	e := echo.New()
+	api := e.Group("/api/v1")
 
-	e.GET("/", route.Root)
-	e.GET("/users/:id", route.UserById)
+	api.GET("/", route.Root)
+	api.GET("/users/:id", route.UserById)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }

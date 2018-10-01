@@ -13,7 +13,19 @@ type User struct {
 }
 
 func Root(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
+	users := []User {
+		{
+			Id: 1,
+			Name: "TsukinoMito",
+			Age: 16,
+		},
+		{
+			Id: 2,
+			Name: "YukiChihiro",
+			Age: 10,
+		},
+	}
+	return c.JSON(http.StatusOK, users)
 }
 
 func UserById(c echo.Context) error {
