@@ -1,9 +1,9 @@
 package route
 
 import (
-	"github.com/labstack/echo"
 	"net/http"
-	"strconv"
+
+	"github.com/labstack/echo"
 )
 
 type User struct {
@@ -12,32 +12,25 @@ type User struct {
 	Age  int    `json:"age"`
 }
 
-func Root(c echo.Context) error {
-	users := []User {
-		{
-			Id: 1,
+var (
+	users = map[string]User{
+		"1": User{
+			Id:   1,
 			Name: "TsukinoMito",
-			Age: 16,
+			Age:  16,
 		},
-		{
-			Id: 2,
+		"2": User{
+			Id:   2,
 			Name: "YukiChihiro",
-			Age: 10,
+			Age:  10,
 		},
 	}
+)
+
+func Root(c echo.Context) error {
 	return c.JSON(http.StatusOK, users)
 }
 
 func UserById(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
-	return c.JSON(http.StatusOK, getUser(id))
-}
-
-func getUser(id int) *User {
-	u := &User{
-		Id:   id,
-		Name: "Sample Name",
-		Age:  99,
-	}
-	return u
+	return c.JSON(http.StatusOK, users[c.Param("id")])
 }
